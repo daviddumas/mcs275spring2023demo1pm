@@ -8,6 +8,11 @@ from urllib.request import urlopen
 # should access "http://example.com"
 # save the payload (HTML) to a file called "out.html"
 
+# Expect sys.argv to have length 3: script name, URL, output filename
+if len(sys.argv) != 3:
+    print("Usage: {} URL OUTFILENAME".format(sys.argv[0]))
+    exit(1)
+
 url = sys.argv[1]
 outfn = sys.argv[2]
 
