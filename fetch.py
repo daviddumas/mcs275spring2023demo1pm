@@ -3,6 +3,7 @@
 
 import sys
 from urllib.request import urlopen
+import urllib.error
 
 # fetch.py 'http://example.com' out.html
 # should access "http://example.com"
@@ -16,6 +17,10 @@ if len(sys.argv) != 3:
 url = sys.argv[1]
 outfn = sys.argv[2]
 
-with urlopen(url) as r:
-    with open(outfn,"wb") as fp:
-        fp.write(r.read())
+try:
+    with urlopen(url) as r:
+        with open(outfn,"wb") as fp:
+            fp.write(r.read())
+    print("SUCCESS: Saved '{}' to '{}'".format(url,outfn))
+except urllib.error.URLError:
+    print("ERROR: Failed to retrieve '{}'".format(url))
